@@ -23,7 +23,11 @@ LOCATION = "us-central1"
 if "gcp_service_account" in st.secrets:
     try:
         # Streamlit Cloud 배포용 (Secrets에서 로드)
-        service_account_info = st.secrets["gcp_service_account"]
+        service_account_info = dict(st.secrets["gcp_service_account"])
+        # JSON의 \n 문자가 실제 줄바꿈으로 인식되지 않는 경우 대비
+        if "private_key" in service_account_info:
+            service_account_info["private_key"] = service_account_info["private_key"].replace("\\n", "\n")
+        
         credentials = service_account.Credentials.from_service_account_info(service_account_info)
         PROJECT_ID = service_account_info.get("project_id", PROJECT_ID)
     except Exception as e:
