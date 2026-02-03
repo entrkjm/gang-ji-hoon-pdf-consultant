@@ -1,0 +1,16 @@
+# GCP Keys and Secrets
+**/keys/*.json
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Streamlit
+.streamlit/
+
+# OS
+.DS_Store
