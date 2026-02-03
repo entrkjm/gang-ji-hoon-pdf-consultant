@@ -160,9 +160,9 @@ with st.sidebar:
 if uploaded_file and target_major:
     st.divider()
     if st.button("분석 시작하기", type="primary"):
-        # 검증
-        if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS") and not st.secrets.get("GOOGLE_APPLICATION_CREDENTIALS"):
-             st.error("GCP 인증 키가 없습니다. 'keys/' 폴더에 JSON 키를 넣어주세요.")
+        # 검증: 상단에서 credentials가 생성되었거나, 환경변수가 설정되어 있는지 확인
+        if not credentials and not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+             st.error("GCP 인증 정보가 설정되지 않았습니다. 로컬의 경우 'keys/' 폴더를, 배포 환경의 경우 'Secrets' 설정을 확인해주세요.")
              st.stop()
 
         with st.spinner("AI가 생기부를 분석 중입니다... (Vertex AI)"):
